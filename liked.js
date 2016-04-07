@@ -49,11 +49,7 @@ var MutationObserver = window.MutationObserver || window.WebKitMutationObserver 
 
 // 创建评论点赞的观察者对象
 var likedObserver = new MutationObserver(function(mutations) {
-    console.log(123)
-    console.log(mutations)
-    // mutations.forEach(function(mutation) {
-    //     console.log(mutation.type);
-    // });
+    commentLikedModifyFunc(mutations[0].target)
 });
 
 // 评论列表
@@ -63,10 +59,7 @@ var commentListInsertFunc = function(e) {
         var likeSpan = self.find('.zg-icon.zg-icon-comment-like').next()
         for (var i = 0; i < likeSpan.length; i++) {
             commentLikedModifyFunc(likeSpan[i])
-
-            likedObserver.observe(likeSpan[i], { attributes: true, childList: true, characterData: true });
-            // $(likeSpan[i]).on('change', commentLikedModifyFunc2)
-            // $(likeSpan[i]).on('DOMAttrModified', commentLikedModifyFunc2)
+            likedObserver.observe(likeSpan[i], {childList: true});
         };
     }
 }
