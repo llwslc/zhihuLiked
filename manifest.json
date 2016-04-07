@@ -1,0 +1,16 @@
+{
+   "name": "zhihuLiked",
+   "description": "liked zhihu comment",
+   "manifest_version": 2,
+   "version": "0.0.1",
+   "converted_from_user_script": true,
+   "content_scripts": [ {
+      "exclude_globs": [  ],
+      "include_globs": [ "*" ],
+      "js": [ "jquery-2.2.2.min.js", "liked.js" ],
+      "matches": [ "http://www.zhihu.com/*", "https://www.zhihu.com/*" ],
+      "run_at": "document_end"
+   } ],
+   "permissions": [ "http://*.zhihu.com/", "https://*.zhihu.com/" ],
+   "web_accessible_resources": [ "*.js" ]
+}
