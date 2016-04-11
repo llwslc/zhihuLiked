@@ -42,6 +42,7 @@ var commentLikedModifyFunc = function(e) {
     } else if (text == '取消赞') {
         e.innerHTML = "朕知道了"
     } else {
+        console.log(e)
         // null
     }
 }

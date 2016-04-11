@@ -11,10 +11,6 @@
       "matches": [ "http://www.zhihu.com/*", "https://www.zhihu.com/*" ],
       "run_at": "document_end"
    } ],
-   "background": {
-      "scripts": [ "background.js" ],
-      "persistent": true
-   },
-   "permissions": [ "webRequest", "http://*.zhihu.com/", "https://*.zhihu.com/" ],
+   "permissions": [ "http://*.zhihu.com/", "https://*.zhihu.com/" ],
    "web_accessible_resources": [ "*.js" ]
 }
