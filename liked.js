@@ -182,11 +182,39 @@ searchInit()
 topicInit()
 roundtableInit()
 
+
+        // $.post(href+'/block',$.param({
+        //     action:'add'
+        //   , _xsrf:$('input[name=_xsrf]').val()
+        // }),function(r){
+        //     var href=this.url.replace('/block','')
+        //       , userID=href.split('/').pop()
+        //       , who=','+userID+','
+        //       , blocking=iZhihu.QuickBlock.Blocking
+        //     ;
+
+        //     if(0==--blocking.Count)$cartDIV.removeClass('pending');
+
+        //     if(blocking.Users.indexOf(who) < 0)
+        //         return; // No this user in pending
+
+        //     blocking.Users = blocking.Users.replace(who,',');
+        //     $('#izh_blockCart .user2B[href="'+href+'"]').find('.del')[0].click();
+        //     $('a[href$="'+href+'"]').css('text-decoration','line-through');
+        // }).always(function(data, textStatus, jqXHR){
+        //     iZhihu.QuickBlock.doQuickBlock()
+
+
 //<button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$56279125.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$56279125.1.2.4.0"></i><span data-reactid=".0.1.$56279125.1.2.4.1">赞</span></button>
 //<button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125584489.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$125584489.1.2.4.0"></i><span data-reactid=".0.1.$125584489.1.2.4.1">取消推荐</span></button>
 
 // vendor.ff76fbae.js:5 PUT https://www.zhihu.com/r/answers/33064505/comments/128518691/liked
+// _xsrf:8cffeff93efecb919ed68cb0a10d2b23
+
 // vendor.ff76fbae.js:5 PUT https://www.zhihu.com/r/answers/32108751/comments/125579367/featured
+
+// GET https://www.zhihu.com/r/answers/28289374/comments
+// GET https://www.zhihu.com/r/answers/32623390/comments?page=2
 
 //
 // <a href="#" name="addcomment" class=" meta-item toggle-comment">
