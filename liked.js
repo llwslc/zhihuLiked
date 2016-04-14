@@ -205,6 +205,7 @@ roundtableInit()
         //     iZhihu.QuickBlock.doQuickBlock()
 
 
+
 //<button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$56279125.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$56279125.1.2.4.0"></i><span data-reactid=".0.1.$56279125.1.2.4.1">赞</span></button>
 //<button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125584489.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$125584489.1.2.4.0"></i><span data-reactid=".0.1.$125584489.1.2.4.1">取消推荐</span></button>
 
@@ -215,6 +216,7 @@ roundtableInit()
 
 // GET https://www.zhihu.com/r/answers/28289374/comments
 // GET https://www.zhihu.com/r/answers/32623390/comments?page=2
+// GET https://www.zhihu.com/r/answers/33112390/comments?bycomment=128671011
 
 //
 // <a href="#" name="addcomment" class=" meta-item toggle-comment">
