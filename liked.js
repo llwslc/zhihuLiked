@@ -29,7 +29,6 @@ var addCommentClick = function() {
         });
     }
 
-
     init()
     feedListInsert()
 }
