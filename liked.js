@@ -83,7 +83,7 @@ var commentPanelInsertFunc = function(e) {
 var answerInsertFunc = function(e) {
     var commentBtns = e.find('[name=\'addcomment\']')
     if (commentBtns.length != 0) {
-        var commentPanel = e.find('.zm-item-meta.zm-item-comment-el.answer-actions.clearfix')
+        var commentPanel = e.find('.zm-item-meta.answer-actions.clearfix.js-contentActions')
         $(commentPanel[0]).on('DOMNodeInserted', commentPanelInsertFunc)
     }
 }
@@ -169,7 +169,6 @@ var roundtableInit = function () {
     // 现有监听 FAIL
     // 更新监听 FAIL
 }
-
 
 homeInit()
 answerInit()
