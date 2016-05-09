@@ -33,27 +33,58 @@ var addCommentClick = function() {
     feedListInsert()
 }
 
+// 推荐翻页
+var commentFeaturedFlip = function(e) {
+    var self = $(e.target);
+    var pageEles = self.parent().children();
+    var answersId = 0;
+    var page = 1;
+
+    if (pageEles[pageEles.length - 1].innerHTML == '下一页') {
+        var parents = self.parents();
+        for (var i = 0; i < parents.length; i++) {
+            if ($(parents[i]).hasClass('zm-item-answer-owner')) {
+                answersId = $(parents[i]).attr('data-atoken');
+            }
+        };
+
+        var pages = self.parent().find("span[class^='_Pager_unclickable_']");
+        for (var i = 0; i < pages.length; i++) {
+            var pageNum = Number(pages[i].innerHTML);
+            if (!isNaN(pageNum)) {
+                page = pageNum;
+            }
+        };
+
+        console.log(answersId, page)
+    }
+}
+
 // 检测到有推荐
 var commentFeaturedFound = function(e) {
     var self = e;
     var parents = self.parents();
-    var next = self.next();
+    var prev = self.prev();
     var answersId = 0;
     var page = 1;
     for (var i = 0; i < parents.length; i++) {
         if ($(parents[i]).hasClass('zm-item-answer-owner')) {
             answersId = $(parents[i]).attr('data-atoken');
-            console.log(answersId)
         }
     };
-console.log(self)
-console.log(self.next())
-    if (next.find("div[class^='_Pager_root_']")) {
-        var pages = next.find("span[class^='_Pager_unclickable_']");
-        console.log(pages)
+
+    if (new RegExp('^_Pager_root_').test(prev.attr('class'))) {
+        prev.on('DOMNodeInserted', commentFeaturedFlip)
+        var pages = prev.find("span[class^='_Pager_unclickable_']");
+        for (var i = 0; i < pages.length; i++) {
+            var pageNum = Number(pages[i].innerHTML);
+            if (!isNaN(pageNum)) {
+                page = pageNum;
+            }
+        };
     }
-            //_Pager_root_2GoR _CommentBox_pagerBorder_yuO1
-            //_Pager_unclickable_i6Gm _Pager_item_3xy4 _colors_text-muted_5fu-
+
+    console.log(answersId, page)
 }
 
 // 获取评论列表
@@ -86,21 +117,23 @@ var commentLikedModifyFunc = function(e) {
 
 // 评论列表插入
 var commentListInsertFunc = function(e) {
-    var self = $(e.target)
+    var self = $(e.target);
     if ((self.hasClass('_CommentBox_list_10_K')) || (self.hasClass('_CommentItem_root_PQNS'))) {
         // 评论列表打开 或 翻页
         var likeSpan = self.find('.zg-icon.zg-icon-comment-like').next();
-        var likeSpanText = likeSpan[0].innerHTML;
-        if (likeSpanText == '推荐' || likeSpanText == '取消推荐') {
-            commentFeaturedFound(self);
-        } else {
-            for (var i = 0; i < likeSpan.length; i++) {
-                commentLikedModifyFunc(likeSpan[i])
-            };
-        }
+        for (var i = 0; i < likeSpan.length; i++) {
+            commentLikedModifyFunc(likeSpan[i])
+        };
     } else if (self.is('span')) {
         // 成功点赞
         commentLikedModifyFunc(self[0])
+    } else if (new RegExp('^_CommentForm_root_').test(self.attr('class'))) {
+        // 评论框
+        var likeSpan = self.parent().find('.zg-icon.zg-icon-comment-like').next();
+        var likeSpanText = likeSpan[0].innerHTML;
+        if (likeSpanText == '推荐' || likeSpanText == '取消推荐') {
+            commentFeaturedFound(self);
+        }
     } else {
         // null
     }
