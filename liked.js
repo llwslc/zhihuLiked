@@ -37,14 +37,14 @@ var addCommentClick = function() {
 var commentFeaturedFlip = function(e) {
     var self = $(e.target);
     var pageEles = self.parent().children();
-    var answersId = 0;
-    var page = 1;
+    var commentsId = 0;
+    var curPage = 1;
 
     if (pageEles[pageEles.length - 1].innerHTML == '下一页') {
         var parents = self.parents();
         for (var i = 0; i < parents.length; i++) {
             if ($(parents[i]).hasClass('zm-item-answer-owner')) {
-                answersId = $(parents[i]).attr('data-atoken');
+                commentsId = $(parents[i]).attr('data-aid');
             }
         };
 
@@ -52,11 +52,11 @@ var commentFeaturedFlip = function(e) {
         for (var i = 0; i < pages.length; i++) {
             var pageNum = Number(pages[i].innerHTML);
             if (!isNaN(pageNum)) {
-                page = pageNum;
+                curPage = pageNum;
             }
         };
 
-        console.log(answersId, page)
+        getCommentListReq(commentsId, curPage);
     }
 }
 
@@ -65,11 +65,11 @@ var commentFeaturedFound = function(e) {
     var self = e;
     var parents = self.parents();
     var prev = self.prev();
-    var answersId = 0;
-    var page = 1;
+    var commentsId = 0;
+    var curPage = 1;
     for (var i = 0; i < parents.length; i++) {
         if ($(parents[i]).hasClass('zm-item-answer-owner')) {
-            answersId = $(parents[i]).attr('data-atoken');
+            commentsId = $(parents[i]).attr('data-aid');
         }
     };
 
@@ -79,18 +79,23 @@ var commentFeaturedFound = function(e) {
         for (var i = 0; i < pages.length; i++) {
             var pageNum = Number(pages[i].innerHTML);
             if (!isNaN(pageNum)) {
-                page = pageNum;
+                curPage = pageNum;
             }
         };
     }
 
-    console.log(answersId, page)
+    getCommentListReq(commentsId, curPage);
 }
 
 // 获取评论列表
-var getCommentListReq = function(answersId, page) {
-    $.get('https://www.zhihu.com/r/answers/28289374/comments?page=1', function(data){
-        console.log("Data Loaded: " + data);
+var getCommentListReq = function(commentsId, curPage) {
+    $.get(`https://www.zhihu.com/r/answers/${commentsId}/comments?page=${curPage}`, function(resp){
+        for (var i = 0; i < resp.data.length; i++) {
+            if (!resp.data[i].author.isSelf) {
+                var liked = resp.data[i].liked;
+                console.log(liked)
+            }
+        };
     });
 }
 
