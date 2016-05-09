@@ -33,13 +33,43 @@ var addCommentClick = function() {
     feedListInsert()
 }
 
+// 检测到有推荐
+var commentFeaturedFound = function(e) {
+    var self = e;
+    var parents = self.parents();
+    var next = self.next();
+    var answersId = 0;
+    var page = 1;
+    for (var i = 0; i < parents.length; i++) {
+        if ($(parents[i]).hasClass('zm-item-answer-owner')) {
+            answersId = $(parents[i]).attr('data-atoken');
+            console.log(answersId)
+        }
+    };
+console.log(self)
+console.log(self.next())
+    if (next.find("div[class^='_Pager_root_']")) {
+        var pages = next.find("span[class^='_Pager_unclickable_']");
+        console.log(pages)
+    }
+            //_Pager_root_2GoR _CommentBox_pagerBorder_yuO1
+            //_Pager_unclickable_i6Gm _Pager_item_3xy4 _colors_text-muted_5fu-
+}
+
+// 获取评论列表
+var getCommentListReq = function(answersId, page) {
+    $.get('https://www.zhihu.com/r/answers/28289374/comments?page=1', function(data){
+        console.log("Data Loaded: " + data);
+    });
+}
+
 // 评论赞修改
 var commentLikedModifyFunc = function(e) {
-    var text = e.innerHTML
+    var text = e.innerHTML;
     if (text == '赞') {
-        e.innerHTML = "仰祈圣鉴"
+        e.innerHTML = '仰祈圣鉴'
     } else if (text == '取消赞') {
-        e.innerHTML = "朕知道了"
+        e.innerHTML = '朕知道了'
     } else {
         // 推荐
     }
@@ -59,10 +89,15 @@ var commentListInsertFunc = function(e) {
     var self = $(e.target)
     if ((self.hasClass('_CommentBox_list_10_K')) || (self.hasClass('_CommentItem_root_PQNS'))) {
         // 评论列表打开 或 翻页
-        var likeSpan = self.find('.zg-icon.zg-icon-comment-like').next()
-        for (var i = 0; i < likeSpan.length; i++) {
-            commentLikedModifyFunc(likeSpan[i])
-        };
+        var likeSpan = self.find('.zg-icon.zg-icon-comment-like').next();
+        var likeSpanText = likeSpan[0].innerHTML;
+        if (likeSpanText == '推荐' || likeSpanText == '取消推荐') {
+            commentFeaturedFound(self);
+        } else {
+            for (var i = 0; i < likeSpan.length; i++) {
+                commentLikedModifyFunc(likeSpan[i])
+            };
+        }
     } else if (self.is('span')) {
         // 成功点赞
         commentLikedModifyFunc(self[0])
@@ -108,17 +143,16 @@ var homeInit = function() {
 // 回答
 var answerInit = function () {
     // 现有监听
-    var tAnswer = $('.zh-question-answer-wrapper')
-    answerInsertFunc(tAnswer)
-
-    // 展开监听
     // 同首页现有监听
+
+    // 更新监听
+    // 同首页更新监听
 }
 
 // 问题
 var questionInit = function() {
     // 现有监听
-    // 同下更新监听
+    // 同首页现有监听
 
     // 更新监听
     var answerList = $('#zh-question-answer-wrap')
