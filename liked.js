@@ -33,6 +33,52 @@ var addCommentClick = function() {
     feedListInsert()
 }
 
+// 点击点赞按钮
+var commentLikedPut = function(e) {
+    var self = $(e.target);
+    var commentsId = self.attr('commentsId');
+    var commentItemId = self.attr('commentItemId');
+    var liked = self.attr('liked');
+    var type = (liked === 'true') ? 'DELETE' : 'PUT';
+    var _xsrf = $('input[name=_xsrf]').val();
+    $.ajax({
+        url: `https://www.zhihu.com/r/answers/${commentsId}/comments/${commentItemId}/liked`,
+        type: type,
+        data: `_xsrf=${_xsrf}`,
+        complete: function(response) {
+            if (response.status == 204) {
+                console.log(self)
+                console.log(liked)
+                console.log((liked === 'true'))
+                self[0].innerHTML = (liked === 'true') ? '仰祈圣鉴' : '朕知道了';
+                self.attr('liked', (liked === 'true') ? false : true);
+            } else {
+                console.log('点赞失败:', response.status)
+            }
+        }
+    });
+}
+
+// 推荐后添加点赞按钮
+var commentLikedReappear = function(e, commentsId, commentItemId, liked) {
+    var self = $(e);
+    var featuredBut = self.find('.zg-icon.zg-icon-comment-like').parent();
+    var likedBut = document.createElement('button');
+    $(likedBut).addClass(featuredBut.attr('class'));
+    var likedIcon = document.createElement('i');
+    $(likedIcon).addClass('zg-icon zg-icon-comment-like');
+    var likedSpan = document.createElement('span');
+    likedSpan.innerHTML = liked ? '朕知道了' : '仰祈圣鉴';
+    likedSpan.onclick = commentLikedPut;
+    $(likedSpan).attr('commentsId', commentsId);
+    $(likedSpan).attr('commentItemId', commentItemId);
+    $(likedSpan).attr('liked', liked);
+    likedBut.appendChild(likedIcon);
+    likedBut.appendChild(likedSpan);
+
+    featuredBut.after(likedBut);
+}
+
 // 推荐翻页
 var commentFeaturedFlip = function(e) {
     var self = $(e.target);
@@ -56,7 +102,7 @@ var commentFeaturedFlip = function(e) {
             }
         };
 
-        getCommentListReq(commentsId, curPage);
+        getCommentListReq(commentsId, curPage, self.parent().parent());
     }
 }
 
@@ -84,18 +130,23 @@ var commentFeaturedFound = function(e) {
         };
     }
 
-    getCommentListReq(commentsId, curPage);
+    getCommentListReq(commentsId, curPage, self.parent());
 }
 
 // 获取评论列表
-var getCommentListReq = function(commentsId, curPage) {
-    $.get(`https://www.zhihu.com/r/answers/${commentsId}/comments?page=${curPage}`, function(resp){
-        for (var i = 0; i < resp.data.length; i++) {
-            if (!resp.data[i].author.isSelf) {
-                var liked = resp.data[i].liked;
-                console.log(resp.data[i].id)
-
-                //<div class="_CommentItem_root_PQNS" tabindex="-1" aria-label="杨祉杰的评论" data-id="125602397" data-reactid=".0.1.$125602397"><a data-tip="p$t$yang-zhi-jie-95" href="http://www.zhihu.com/people/yang-zhi-jie-95" target="_blank" tabindex="-1" class="_CommentItem_avatarLink_3V51 hidden-phone" data-reactid=".0.1.$125602397.0"><img tabindex="-1" class="Avatar Avatar-s" src="https://pic2.zhimg.com/24c68de39e955951c271f18ab0bdd759_s.jpg" srcset="https://pic2.zhimg.com/24c68de39e955951c271f18ab0bdd759_xs.jpg 2x" data-reactid=".0.1.$125602397.0.0"></a><div class="_CommentItem_body_3qwB" data-reactid=".0.1.$125602397.1"><div class="_CommentItem_header_2JGh" data-reactid=".0.1.$125602397.1.0"><a data-tip="p$t$yang-zhi-jie-95" href="http://www.zhihu.com/people/yang-zhi-jie-95" target="_blank" data-reactid=".0.1.$125602397.1.0.0">杨祉杰</a></div><div class="_CommentItem_content_CYqW" data-reactid=".0.1.$125602397.1.1">从上知乎起就没觉得奶爸哪个答案有料……</div><div class="_CommentItem_footer_46v8 clearfix" data-reactid=".0.1.$125602397.1.2"><span class="_CommentItem_likes_2hey" data-tip="s$r$25 人觉得这个很赞" data-reactid=".0.1.$125602397.1.2.0"><span data-reactid=".0.1.$125602397.1.2.0.0">25</span><span data-reactid=".0.1.$125602397.1.2.0.1"> 赞</span></span><time title="2016-03-21 15:00:54" data-reactid=".0.1.$125602397.1.2.1">2 月前</time><button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125602397.1.2.2"><i class="zg-icon zg-icon-comment-del" data-reactid=".0.1.$125602397.1.2.2.0"></i><span data-reactid=".0.1.$125602397.1.2.2.1">删除</span></button><button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125602397.1.2.3"><i class="zg-icon zg-icon-comment-reply" data-reactid=".0.1.$125602397.1.2.3.0"></i><span data-reactid=".0.1.$125602397.1.2.3.1">回复</span></button><button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125602397.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$125602397.1.2.4.0"></i><span data-reactid=".0.1.$125602397.1.2.4.1">推荐</span></button><button label="举报" icon="zg-icon zg-icon-comment-report" class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125602397.1.2.5:$report"><i class="zg-icon zg-icon-comment-report" data-reactid=".0.1.$125602397.1.2.5:$report.0"></i><span data-reactid=".0.1.$125602397.1.2.5:$report.1">举报</span></button></div></div></div>
+var getCommentListReq = function(commentsId, curPage, commentBoxRoot) {
+    var self = commentBoxRoot.find('._CommentItem_root_PQNS');
+    $.get(`https://www.zhihu.com/r/answers/${commentsId}/comments?page=${curPage}`, function(response){
+        for (var i = 0; i < response.data.length; i++) {
+            if (!response.data[i].author.isSelf) {
+                var liked = response.data[i].liked;
+                for (var j = 0; j < self.length; j++) {
+                    var commentItemId = response.data[i].id;
+                    if (commentItemId == $(self[j]).attr('data-id')) {
+                        commentLikedReappear(self[j], commentsId, commentItemId, liked);
+                        break;
+                    }
+                };
             }
         };
     });
@@ -254,44 +305,3 @@ searchInit()
 topicInit()
 roundtableInit()
 
-
-        // $.post(href+'/block',$.param({
-        //     action:'add'
-        //   , _xsrf:$('input[name=_xsrf]').val()
-        // }),function(r){
-        //     var href=this.url.replace('/block','')
-        //       , userID=href.split('/').pop()
-        //       , who=','+userID+','
-        //       , blocking=iZhihu.QuickBlock.Blocking
-        //     ;
-
-        //     if(0==--blocking.Count)$cartDIV.removeClass('pending');
-
-        //     if(blocking.Users.indexOf(who) < 0)
-        //         return; // No this user in pending
-
-        //     blocking.Users = blocking.Users.replace(who,',');
-        //     $('#izh_blockCart .user2B[href="'+href+'"]').find('.del')[0].click();
-        //     $('a[href$="'+href+'"]').css('text-decoration','line-through');
-        // }).always(function(data, textStatus, jqXHR){
-        //     iZhihu.QuickBlock.doQuickBlock()
-
-
-
-//<button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$56279125.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$56279125.1.2.4.0"></i><span data-reactid=".0.1.$56279125.1.2.4.1">赞</span></button>
-//<button class="_CommentItem_action_Hk0w _CommentBox_textButton_3t9_" data-reactid=".0.1.$125584489.1.2.4"><i class="zg-icon zg-icon-comment-like" data-reactid=".0.1.$125584489.1.2.4.0"></i><span data-reactid=".0.1.$125584489.1.2.4.1">取消推荐</span></button>
-
-// vendor.ff76fbae.js:5 PUT https://www.zhihu.com/r/answers/33064505/comments/128518691/liked
-// _xsrf:8cffeff93efecb919ed68cb0a10d2b23
-
-// vendor.ff76fbae.js:5 PUT https://www.zhihu.com/r/answers/32108751/comments/125579367/featured
-
-// GET https://www.zhihu.com/r/answers/28289374/comments
-// GET https://www.zhihu.com/r/answers/32623390/comments?page=2
-// GET https://www.zhihu.com/r/answers/33112390/comments?bycomment=128671011
-
-//
-// <a href="#" name="addcomment" class=" meta-item toggle-comment">
-// <i class="z-icon-comment"></i>添加评论</a>
-
-// <div class="comment-app-holder" style="display: none;">
