@@ -50,9 +50,6 @@ var commentLikedPut = function(e) {
         data: `_xsrf=${_xsrf}`,
         complete: function(response) {
             if (response.status == 204) {
-                console.log(self)
-                console.log(liked)
-                console.log((liked === 'true'))
                 self[0].innerHTML = (liked === 'true') ? likeStr : unlikeStr;
                 self.attr('liked', (liked === 'true') ? false : true);
             } else {
@@ -88,6 +85,10 @@ var commentFeaturedFlip = function(e) {
     var pageEles = self.parent().children();
     var commentsId = 0;
     var curPage = 1;
+
+    if (self.parent().prev().find('[liked]').length !== 0) {
+        return;
+    }
 
     if (pageEles[pageEles.length - 1].innerHTML == '下一页') {
         var parents = self.parents();
