@@ -33,6 +33,9 @@ var addCommentClick = function() {
     feedListInsert()
 }
 
+var likeStr = '仰祈圣鉴';
+var unlikeStr = '朕知道了';
+
 // 点击点赞按钮
 var commentLikedPut = function(e) {
     var self = $(e.target);
@@ -50,7 +53,7 @@ var commentLikedPut = function(e) {
                 console.log(self)
                 console.log(liked)
                 console.log((liked === 'true'))
-                self[0].innerHTML = (liked === 'true') ? '仰祈圣鉴' : '朕知道了';
+                self[0].innerHTML = (liked === 'true') ? likeStr : unlikeStr;
                 self.attr('liked', (liked === 'true') ? false : true);
             } else {
                 console.log('点赞失败:', response.status)
@@ -68,7 +71,7 @@ var commentLikedReappear = function(e, commentsId, commentItemId, liked) {
     var likedIcon = document.createElement('i');
     $(likedIcon).addClass('zg-icon zg-icon-comment-like');
     var likedSpan = document.createElement('span');
-    likedSpan.innerHTML = liked ? '朕知道了' : '仰祈圣鉴';
+    likedSpan.innerHTML = liked ? unlikeStr : likeStr;
     likedSpan.onclick = commentLikedPut;
     $(likedSpan).attr('commentsId', commentsId);
     $(likedSpan).attr('commentItemId', commentItemId);
@@ -156,9 +159,9 @@ var getCommentListReq = function(commentsId, curPage, commentBoxRoot) {
 var commentLikedModifyFunc = function(e) {
     var text = e.innerHTML;
     if (text == '赞') {
-        e.innerHTML = '仰祈圣鉴'
+        e.innerHTML = likeStr;
     } else if (text == '取消赞') {
-        e.innerHTML = '朕知道了'
+        e.innerHTML = unlikeStr;
     } else {
         // 推荐
     }
