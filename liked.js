@@ -45,6 +45,10 @@ var commentLikedPut = function(e) {
     var type = (liked === 'true') ? 'DELETE' : 'PUT';
     var _xsrf = $('input[name=_xsrf]').val();
     $.ajax({
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'X-Xsrftoken': _xsrf
+        },
         url: `https://www.zhihu.com/r/answers/${commentsId}/comments/${commentItemId}/liked`,
         type: type,
         data: `_xsrf=${_xsrf}`,
