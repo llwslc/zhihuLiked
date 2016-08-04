@@ -313,3 +313,46 @@ searchInit()
 topicInit()
 roundtableInit()
 
+
+
+
+
+// Request URL:https://www.zhihu.com/r/answers/39318296/comments
+// Request Method:POST
+// Status Code:201 Created
+// Remote Address:125.39.6.139:443
+// Response Headers
+// view source
+// Cache-Control:no-store
+// Connection:keep-alive
+// Content-Length:601
+// Content-Security-Policy:default-src *; img-src * data:; frame-src 'self' *.zhihu.com getpocket.com note.youdao.com; script-src 'self' *.zhihu.com *.google-analytics.com zhstatic.zhihu.com res.wx.qq.com 'unsafe-eval'; style-src 'self' *.zhihu.com 'unsafe-inline'
+// Content-Type:application/json; charset=UTF-8
+// Date:Thu, 07 Jul 2016 09:57:33 GMT
+// Pragma:no-cache
+// Server:nnws/1.7.3.7
+// Set-Cookie:_xsrf=; Domain=zhihu.com; expires=Wed, 08 Jul 2015 09:57:34 GMT; Path=/
+// Vary:Accept-Encoding
+// X-Frame-Options:DENY
+// X-Req-ID:8822776577E278D
+// X-Za-Response-Id:eb51cef06ad94c9586abd7888fa0b31f
+// Request Headers
+// view source
+// Accept:application/json, text/plain, */*
+// Accept-Encoding:gzip, deflate, br
+// Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
+// Connection:keep-alive
+// Content-Length:18
+// Content-Type:application/json
+// Cookie:_za=2094619c-809c-4597-9f53-2cc64b833dc6; udid="AJBAFJgvlAmPTraNWmH02QEYuF4zpHEa4MQ=|1457504460"; _zap=52f4d43b-f979-427a-a45d-e80a7f6945a4; d_c0="AADAE6r7oQmPThbg4PbSqo9hUIvKoF5a5CY=|1460948102"; l_cap_id="YjA1ODdkZTBlN2VkNDk0NzhmYzQyNWU2NTlhZjA1ZWU=|1465977394|a9b7914a368ce77c20cd1a4b17ae0a8e4dfa7dfe"; cap_id="YTA2NmM4NzI3NWVkNDk2Yjk3OWUzOTU5NGVlNTE0MDU=|1465977394|231cdcd7ac58814707365ece7ac6a1043888decc"; login="YmMzMTUzNGQzYjNmNDU1ODhiYzNhZmExNzBiYTE2NDc=|1465977477|6088ea4b065a6c6201268deb222bb8df7baf2e98"; z_c0=Mi4wQUFCQVY1QVlBQUFBQU1BVHF2dWhDUmNBQUFCaEFsVk5oWmVJVndDRkdhd3dGbkVtMU9aRTJyUFFDdHdSRWF3cEJn|1465977477|c65ed5e1a82ee7347100986c5abca16cab195841; n_c=1; _ga=GA1.2.2072464264.1448342722; _xsrf=88f84f77e20783f3c7ed6c504143e03e; q_c1=e9d377662ea245bdbf72313b22988bc3|1466649855000|1447754407000; s-q=react; s-i=8; sid=etjpvodf; s-t=autocomplete; __utmt=1; a_t="2.0AABAV5AYAAAXAAAAJLSlVwAAQFeQGAAAAADAE6r7oQkXAAAAYQJVTYWXiFcAhRmsMBZxJtTmRNqz0ArcERGsKQarrZG9m_lS6JJgC4IkIfv2ftMHMg=="; __utma=51854390.2072464264.1448342722.1467880237.1467884062.2; __utmb=51854390.31.9.1467885419942; __utmc=51854390; __utmz=51854390.1467880237.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmv=51854390.100-1|2=registration_date=20110727=1^3=entry_date=20110727=1
+// Host:www.zhihu.com
+// Origin:https://www.zhihu.com
+// Referer:https://www.zhihu.com/question/20970090/answer/109618623
+// User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
+// X-Requested-With:XMLHttpRequest
+// X-Xsrftoken:88f84f77e20783f3c7ed6c504143e03e
+// Request Payload
+// view source
+// {content: "test"}
+
+
