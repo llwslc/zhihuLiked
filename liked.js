@@ -84,7 +84,7 @@ var commentSubmitPost = function (e) {
             type: 'POST',
             data: JSON.stringify({content: input}),
             complete: function (response) {
-                if (response.status == 201) {conso
+                if (response.status == 201) {
                     commentStatus(self);
                 } else {
                     commentStatus(self, response.status);
@@ -188,6 +188,10 @@ var commentStatus = function (e, flag) {
 
 // 添加评论对话框(突破拉黑)
 var commentFormReappear = function (e) {
+// 测试无效
+// {message: "由于对方的设置，你不能评论此回答"}
+// {message: "由于作者设置，这条回答无法添加评论。"}
+
     var self = $(e);
 
     var newForm = document.createElement('div');
@@ -355,12 +359,12 @@ var commentListInsertFunc = function (e) {
 
         if ($(self).find('button[class^="_CommentForm_submitButton_"]')) {
             if(typeof($(self).find('button[class^="_CommentForm_submitButton_"]').attr('hidden')) == 'undefined') {
-                commentSubmitButtonAdd($(self).find('button[class^="_CommentForm_submitButton_"]')[0])
+                // commentSubmitButtonAdd($(self).find('button[class^="_CommentForm_submitButton_"]')[0])
             }
         }
     } else if (new RegExp('^_CommentBox_cannotCommentReason_').test(self.attr('class'))) {
         // 不能评论
-        commentFormReappear(self);
+        // commentFormReappear(self);
     } else {
         // null
     }
@@ -475,10 +479,11 @@ topicInit()
 roundtableInit()
 
 
+// 3426038
 
+// <div class="_CommentItem_content_CYqW" data-reactid=".0.2.$157218857.1.1">这样说来，最厉害的还是天庭和如来啊！悟空本事再大，也不过在走着当政者给他画的路，佩服！</div>
 
-
-// Request URL:https://www.zhihu.com/r/answers/39318296/comments
+// Request URL:https://www.zhihu.com/r/answers/3426038/comments
 // Request Method:POST
 // Status Code:201 Created
 // Remote Address:125.39.6.139:443
@@ -486,34 +491,40 @@ roundtableInit()
 // view source
 // Cache-Control:no-store
 // Connection:keep-alive
-// Content-Length:601
+// Content-Length:903
 // Content-Security-Policy:default-src *; img-src * data:; frame-src 'self' *.zhihu.com getpocket.com note.youdao.com; script-src 'self' *.zhihu.com *.google-analytics.com zhstatic.zhihu.com res.wx.qq.com 'unsafe-eval'; style-src 'self' *.zhihu.com 'unsafe-inline'
 // Content-Type:application/json; charset=UTF-8
-// Date:Thu, 07 Jul 2016 09:57:33 GMT
+// Date:Tue, 09 Aug 2016 03:34:21 GMT
 // Pragma:no-cache
-// Server:nnws/1.7.3.7
-// Set-Cookie:_xsrf=; Domain=zhihu.com; expires=Wed, 08 Jul 2015 09:57:34 GMT; Path=/
+// Server:Qnginx/1.1.1
+// Set-Cookie:_xsrf=; Domain=zhihu.com; expires=Mon, 10 Aug 2015 03:34:22 GMT; Path=/
+// Set-Cookie:a_t="2.0AABAzI4-AAAXAAAAPtzQVwAAQMyOPgAAACDAuPZgWAoXAAAAYQJVTUvuz1cAupSFrfjTPh40-trHLRz6Di5BM7QjcXs4FMCMkDzKHdKsnwNMc1UVPA=="; Domain=zhihu.com; expires=Wed, 07 Sep 2016 10:39:07 GMT; Path=/; secure
+// Set-Cookie:z_c0=Mi4wQUFCQXpJNC1BQUFBSU1DNDltQllDaGNBQUFCaEFsVk5TLTdQVndDNmxJV3QtTk0tSGpUNjJzY3RIUG9PTGtFenRB|1470713662|5f408d071e24e8592736a321c10a7986baed8b9d; Domain=zhihu.com; expires=Wed, 07 Sep 2016 10:39:07 GMT; httponly; Path=/
 // Vary:Accept-Encoding
 // X-Frame-Options:DENY
-// X-Req-ID:8822776577E278D
-// X-Za-Response-Id:eb51cef06ad94c9586abd7888fa0b31f
+// X-NWS-LOG-UUID:f7c06fe6-4bbf-4d10-878b-3e542d324a1c
+// X-Req-ID:FC360FA57A94F3E
+// X-Za-Experiment:default:None,ab_feature1:cmt_v1
+// X-Za-Response-Id:ce884358d18949dbb928e9a15fc283ea
 // Request Headers
 // view source
-// Accept:application/json, text/plain, *
+// Accept:application/json, text/plain,
 // Accept-Encoding:gzip, deflate, br
 // Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
 // Connection:keep-alive
-// Content-Length:18
+// Content-Length:52
 // Content-Type:application/json
-// Cookie:_za=2094619c-809c-4597-9f53-2cc64b833dc6; udid="AJBAFJgvlAmPTraNWmH02QEYuF4zpHEa4MQ=|1457504460"; _zap=52f4d43b-f979-427a-a45d-e80a7f6945a4; d_c0="AADAE6r7oQmPThbg4PbSqo9hUIvKoF5a5CY=|1460948102"; l_cap_id="YjA1ODdkZTBlN2VkNDk0NzhmYzQyNWU2NTlhZjA1ZWU=|1465977394|a9b7914a368ce77c20cd1a4b17ae0a8e4dfa7dfe"; cap_id="YTA2NmM4NzI3NWVkNDk2Yjk3OWUzOTU5NGVlNTE0MDU=|1465977394|231cdcd7ac58814707365ece7ac6a1043888decc"; login="YmMzMTUzNGQzYjNmNDU1ODhiYzNhZmExNzBiYTE2NDc=|1465977477|6088ea4b065a6c6201268deb222bb8df7baf2e98"; z_c0=Mi4wQUFCQVY1QVlBQUFBQU1BVHF2dWhDUmNBQUFCaEFsVk5oWmVJVndDRkdhd3dGbkVtMU9aRTJyUFFDdHdSRWF3cEJn|1465977477|c65ed5e1a82ee7347100986c5abca16cab195841; n_c=1; _ga=GA1.2.2072464264.1448342722; _xsrf=88f84f77e20783f3c7ed6c504143e03e; q_c1=e9d377662ea245bdbf72313b22988bc3|1466649855000|1447754407000; s-q=react; s-i=8; sid=etjpvodf; s-t=autocomplete; __utmt=1; a_t="2.0AABAV5AYAAAXAAAAJLSlVwAAQFeQGAAAAADAE6r7oQkXAAAAYQJVTYWXiFcAhRmsMBZxJtTmRNqz0ArcERGsKQarrZG9m_lS6JJgC4IkIfv2ftMHMg=="; __utma=51854390.2072464264.1448342722.1467880237.1467884062.2; __utmb=51854390.31.9.1467885419942; __utmc=51854390; __utmz=51854390.1467880237.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmv=51854390.100-1|2=registration_date=20110727=1^3=entry_date=20110727=1
+// Cookie:q_c1=ddd08694522b4a42b62d6f949717ddd2|1470509689000|1470509689000; _xsrf=a79a7234a965f6883d8245d9075420a5; d_c0="ACDAuPZgWAqPTsc87GqM7-s1_RTN-dHbSsA=|1470509690"; _zap=bd8d017a-b8ed-498f-880c-6137765a4158; _za=a295f394-fa32-4cf8-9407-f92167585f8b; l_cap_id="N2U3YTg3N2JjNDRmNDQ4OWFhYzBlOGU4OTFmOWZjNGI=|1470652731|3c64c8a1a402abfbfc0c06c0a1966edf3a4b7fc3"; cap_id="NjQ4ZTQ4NzA5NjEwNDA5ZDgwMWQ3MGUyMTliNTQ0NTk=|1470652731|85c12c6f97350733b8ae51236a432a67b5cbc5e1"; login="OGU5ZDM3NjQ4MzJkNGY5ZWE4MzY5MTU3NjkxYWNlZWY=|1470652742|2843cb6e37e3647a57b770270da3e6ef6eda9ed2"; n_c=1; s-q=xx; s-i=7; sid=rs9a5kq8; s-t=autocomplete; __utmt=1; __utma=51854390.403285439.1470713155.1470713155.1470713155.1; __utmb=51854390.8.10.1470713155; __utmc=51854390; __utmz=51854390.1470713155.1.1.utmcsr=bing|utmccn=(organic)|utmcmd=organic|utmctr=%E6%BE%A1%E5%B7%BE%20%E6%8E%A8%E8%8D%90%20site%3Azhihu.com; __utmv=51854390.100-1|2=registration_date=20141029=1^3=entry_date=20141029=1; a_t="2.0AABAzI4-AAAXAAAAG9zQVwAAQMyOPgAAACDAuPZgWAoXAAAAYQJVTUvuz1cAupSFrfjTPh40-trHLRz6Di5BM7SBr0aucLGQifXfiYyCsW0kdV895g=="; z_c0=Mi4wQUFCQXpJNC1BQUFBSU1DNDltQllDaGNBQUFCaEFsVk5TLTdQVndDNmxJV3QtTk0tSGpUNjJzY3RIUG9PTGtFenRB|1470713627|bac6f10fbf8204f36274db5528c9facb50330b38
 // Host:www.zhihu.com
 // Origin:https://www.zhihu.com
-// Referer:https://www.zhihu.com/question/20970090/answer/109618623
-// User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
+// Referer:https://www.zhihu.com/
+// User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36
 // X-Requested-With:XMLHttpRequest
-// X-Xsrftoken:88f84f77e20783f3c7ed6c504143e03e
+// X-Xsrftoken:a79a7234a965f6883d8245d9075420a5
 // Request Payload
 // view source
-// {content: "test"}
+// {content: "hhhhhhh", inReplyToCommentId: 157218857}
+
+
 
 
